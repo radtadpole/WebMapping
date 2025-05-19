@@ -1,0 +1,102 @@
+<!-- A Versatile Layout for Full-screen Maps by Andy Cochran
+Andy Cochran 
+From https://medium.com/nyc-planning-digital/a-versatile-layout-for-full-screen-maps-229cec508b22 -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Bored in Washington D.C.?</title>
+
+    
+    <!-- JavaScript Libraries-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/js/foundation.js"></script>
+
+  
+    <!-- CSS Links -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/css/foundation.min.css" rel="stylesheet" />
+    <link href="VersitileLayout.css" rel="stylesheet" />
+    
+
+    
+</head>
+
+<body>
+
+    <div class="site-header">
+        <strong class="site-title">Location: Washington D.C.</strong>
+    </div>
+
+    <div class="site-main grid-x has-content-open">
+
+        <div class="search-container cell medium-3 large-2">
+            <input type="text" placeholder="Search..." class="search" />
+            <ul class="search-results no-bullet">
+                <li>N/A</li>
+            </ul>
+        </div>
+        
+        <div class="map-container cell medium-auto large-order-2">
+             <!--  ADD iframe here, inside the versitle layout's map container (VI.2.)   -->
+            <iframe src="filter-markers.html" title="Map"></iframe> 
+        </div>
+
+        <!--  Sidebar panel  -->
+        <div class="sidebar cell medium-3 large-2 large-order-1 show-for-medium">
+            <h5>Check out some places:</h5>
+            <ul>
+                <li><a class="content-link" href="https://www.thelincolndc.com/" target="_blank" rel="noopener noreferrer">Lincoln Theatre</a></li>
+                <li><a class="content-link" href="https://www.atlasarts.org/" target="_blank" rel="noopener noreferrer">Atlas Performing Arts Center</a></li>
+                <li><a class="content-link" href="https://www.washingtonian.com/2023/10/12/pioneering-cocktail-bar-the-gibson-is-closing/" target="_blank" rel="noopener noreferrer">The Gibson</a></li>
+                <li><a class="content-link" href="https://capitalbikeshare.com/" target="_blank" rel="noopener noreferrer">Capital Bikeshare: Van Ness Metro / UDC</a></li>
+                <li><a class="content-link" href="https://www.930.com/" target="_blank" rel="noopener noreferrer">9:30 Club</a></li>
+                <li><a class="content-link" href="https://theanthemdc.com/" target="_blank" rel="noopener noreferrer">The Anthem</a></li>
+                <li><a class="content-link" href="https://www.unionstagepresents.com/the-howard/" target="_blank" rel="noopener noreferrer">Howard Theatre</a></li>
+            </ul>
+
+            <hr />
+
+        </div>
+
+        <div class="content-close-button-container">
+            <a href="#" class="content-close-button">×</a>
+        </div>
+        
+        <!--  Content panel  -->
+        <div class="content cell large-5 large-order-3">
+            <h2>Bored in Washington D.C.?</h2>
+            <p>Explore the city where history, culture, and politics meet. Washington, D.C. is a vibrant destination filled with iconic landmarks, world-class museums, and unique neighborhoods. Whether you're a history buff, foodie, or art lover, there's something for everyone in the capital of the United States.</p>
+            <p>When you think of Washington, D.C., images of grand marble monuments, presidential motorcades, and power lunches may come to mind. But the capital of the United States is much more than a political powerhouse — it’s a vibrant, diverse, and culturally rich city that offers something for every kind of traveler.</p>
+            <p>Getting around Washington, D.C. is a realtively easy thanks to its efficient Metro system, walkable layout, and ample bike lanes. Whether you’re here for a weekend or an extended stay, the city invites exploration on foot, by bike, or even by boat.</p>
+        </div>
+
+    </div>
+
+    <script>
+       
+        $(document).ready(function() {
+
+            $('.content-close-button').click(function() {
+                $('.content-close-button').hide();
+                $('.content').hide();
+                $('.site-main').removeClass('has-content-open')
+
+                // When the map is resized programmatically, window resize must be triggered so that the map renders in the newly allotted space.
+                window.dispatchEvent(new Event('resize'));
+
+            });
+
+            $('.content-link').click(function() {
+                $('.content-close-button').show();
+                $('.content').show();
+                $('.site-main').addClass('has-content-open')
+                window.dispatchEvent(new Event('resize'));
+            });
+
+        });
+    </script>
+
+</body>
+
+</html>
