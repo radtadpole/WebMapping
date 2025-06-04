@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <title>Filter symbols by toggling a list</title>
     <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
-    <link href="https://api.mapbox.com/mapbox-gl-js/v3.4.0/mapbox-gl.css" rel="stylesheet">
-    <script src="https://api.mapbox.com/mapbox-gl-js/v3.4.0/mapbox-gl.js"></script>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v3.12.0/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.12.0/mapbox-gl.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bungee&display=swap" rel="stylesheet"> 
@@ -36,10 +36,17 @@
             margin-top: 10px;
             max-height: 910px;
             overflow-y: auto;
-            background-color: rgba(255,255,255,0.9);
+            background-color: rgba(255,255,255,.5);
             padding: 10px;
             border-radius: 8px;
             font-family: 'Orbitron', sans-serif;
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none;  /* IE and Edge */
+            overflow-y: scroll;  /* Always scrollable */
+        }
+
+        #sidebar::-webkit-scrollbar {
+        display: none; /* Chrome, Safari, Opera */
         }
 
         #sidebar li:hover {
@@ -889,32 +896,32 @@
             }
         });
 
-                    // SIDEBAR
-map.on('sourcedata', (e) => {
-    if (e.sourceId === 'point' && e.isSourceLoaded) {
-        const features = map.querySourceFeatures('point', { sourceLayer: '', filter: ['!has', 'point_count'] });
-        const listEl = document.getElementById('location-list');
+        // SIDEBAR
+        map.on('sourcedata', (e) => {
+            if (e.sourceId === 'point' && e.isSourceLoaded) {
+                const features = map.querySourceFeatures('point', { sourceLayer: '', filter: ['!has', 'point_count'] });
+                const listEl = document.getElementById('location-list');
 
-        features.forEach((feature) => {
-            const li = document.createElement('li');
-            li.textContent = feature.properties.name;
-            li.style.cursor = 'pointer';
-            li.style.padding = '4px 0';
-            li.addEventListener('click', () => {
-                map.flyTo({
-                    center: feature.geometry.coordinates,
-                    zoom: 12
+                features.forEach((feature) => {
+                    const li = document.createElement('li');
+                    li.textContent = feature.properties.name;
+                    li.style.cursor = 'pointer';
+                    li.style.padding = '4px 0';
+                    li.addEventListener('click', () => {
+                        map.flyTo({
+                            center: feature.geometry.coordinates,
+                            zoom: 12
+                        });
+
+                        new mapboxgl.Popup()
+                            .setLngLat(feature.geometry.coordinates)
+                            .setHTML(feature.properties.description)
+                            .addTo(map);
+                    });
+                    listEl.appendChild(li);
                 });
-
-                new mapboxgl.Popup()
-                    .setLngLat(feature.geometry.coordinates)
-                    .setHTML(feature.properties.description)
-                    .addTo(map);
-            });
-            listEl.appendChild(li);
+            }
         });
-    }
-});
 
             // Hover Popups
                 const popup = new mapboxgl.Popup({
@@ -995,4 +1002,5 @@ map.on('sourcedata', (e) => {
         });
     </script>
 </body>
+</html>
 </html>
