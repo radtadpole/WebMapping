@@ -76,7 +76,7 @@
         /* PLACE INFO PANEL */
         #info-panel {
             position: absolute;
-            top: 5%;
+            bottom: 5%;
             right: 3%;
             width: 90%;
             max-width: 300px;
@@ -86,7 +86,7 @@
             padding: 15px;
             border-radius: 8px;
             font-family: 'Orbitron', sans-serif;
-            z-index: 3;
+            z-index: 1;
             box-sizing: border-box;
         }
 
@@ -152,12 +152,12 @@
 
         /* SOURCES */
         #sources-box {
-            display: none; /* 🔁 start hidden */
+            display: none; /* start hidden */
             position: absolute;
-            bottom: 3%;
-            right: 11%;
-            width: 90%;
-            max-width: 380px;
+            bottom: 10%;
+            right: 44.5%;
+            width: 100%;
+            max-width: 400px;
             background-color: rgba(255, 255, 255, 0.95);
             padding: 15px;
             border-radius: 8px;
@@ -171,7 +171,7 @@
         #toggle-sources {
             position: absolute;
             bottom: 3%;
-            right: 5%;
+            right: 50%;
             padding: 10px 15px;
             background-color: rgba(169, 169, 169, 0.85);
             border: none;
@@ -191,6 +191,14 @@
             white-space: nowrap;
             overflow-x: auto;
             max-width: 100%;
+        }
+
+        #overlay {
+            display: none;
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: rgba(0, 0, 0, 0.4); /* semi-transparent black */
+            z-index: 2; /* must be lower than #sources-box (which has z-index: 3) */
         }
 
         /* CHATGPT CODE MAKES IT MOBILE FRIENDLY. . . */
@@ -224,6 +232,10 @@
 <body>
     <!-- MAP -->
     <div id="map"></div>
+
+    <!-- sources overlay -->
+    <div id="overlay"></div>
+    
     <!-- title -->
         <div
             class="titleContainer">
@@ -240,19 +252,7 @@
         </div>
 
     <!-- INFO BOX -->
-    <div id="info-panel" style="
-        position: absolute;
-        top: 5%;
-        right: 5%;
-        width: 300px;
-        max-height: 400px;
-        overflow-y: auto;
-        background-color: rgba(255,255,255,0.95);
-        padding: 15px;
-        border-radius: 8px;
-        font-family: 'Orbitron', sans-serif;
-        z-index: 3;
-        ">
+    <div id="info-panel">
         <div id="info-wrapper">
             <h2>Place You've Selected</h2>
             <div id="info-content"></div>
@@ -1164,7 +1164,7 @@
                         'filter': ['!', ['has', 'point_count']], // EXCLUDES clustered points
                         'layout': {
                             'icon-image': 'cat', // reference the image
-                            'icon-size': 0.067
+                            'icon-size': 0.26
                         }
                     });
 
@@ -1328,10 +1328,12 @@
             // Toggle Sources Box
             const toggleBtn = document.getElementById('toggle-sources');
             const sourcesBox = document.getElementById('sources-box');
+            const overlay = document.getElementById('overlay');
 
             toggleBtn.addEventListener('click', () => {
                 const isVisible = sourcesBox.style.display === 'block';
                 sourcesBox.style.display = isVisible ? 'none' : 'block';
+                overlay.style.display = isVisible ? 'none' : 'block';
                 toggleBtn.textContent = isVisible ? 'Sources' : 'Hide Sources';
             });
 
