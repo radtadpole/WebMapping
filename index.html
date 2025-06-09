@@ -53,6 +53,13 @@
             display: none;
         }
 
+        #sidebar li {
+            padding: 6px 8px;
+            margin-bottom: 8px;
+            border-radius: 4px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
         /* LIST HOVER */
         #sidebar li:hover {
             background-color: red;
@@ -107,6 +114,7 @@
             padding: 10px;
             border-radius: 6px;
             background-color: rgba(169, 169, 169, 0.85);
+            text-align: center;
         }
 
         #btn-spin, #btn-reset {
@@ -118,6 +126,7 @@
             padding: 18px 20px;
             border-radius: 6px;
             width: 100%;
+            transition: background-color 0.3s, color 0.3s;
         }
 
         #btn-spin:hover, #btn-reset:hover {
@@ -170,6 +179,7 @@
             font-family: 'Orbitron', sans-serif;
             cursor: pointer;
             z-index: 4;
+            transition: background-color 0.3s, color 0.3s;
         }
 
         #toggle-sources:hover {
@@ -270,8 +280,6 @@
         <h3>Custom basemap made in Mapbox by Kyle Marcelino.</h3>
     </div>
     <button id="toggle-sources">Sources</button>
-
-
 
     <script>
         mapboxgl.accessToken = 'pk.eyJ1IjoicmFkdGFkcG9sZSIsImEiOiJjbHVsaGpzNnExNDM4MmpudXMyamFpZTM2In0.rNrtDKpfSzqAa6PxIn_Wjw';
