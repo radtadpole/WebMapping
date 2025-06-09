@@ -16,49 +16,194 @@
         body { margin: 0; padding: 0; }
         #map { position: absolute; top: 0; bottom: 0; width: 100%; }
 
-        /* title */
+        /* TITLE */
         .titleContainer {
             position: absolute;
-            top: 50px;
-            left: 50px;
-            z-index: 2;
-            width: 550px;
-            max-height: 1600px;
-            overflow-y: visible;
+            top: 5%;
+            left: 3%;
+            right: 5%;
+            bottom: 5%;
+            width: auto;
+            max-width: 380px;
             background: rgba(169, 169, 169, 0.85);
             border-radius: 7px;
             font-family: Bungee, sans-serif;
             padding: 15px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
         }
 
-        /* sidebar */
+        /* SIDEBAR */
         #sidebar {
-            margin-top: 10px;
-            max-height: 680px;
+            flex: 1; /* ✅ takes up remaining space */
             overflow-y: auto;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
             background-color: rgba(255,255,255,0.9);
             padding: 10px;
             border-radius: 8px;
             font-family: 'Orbitron', sans-serif;
+            box-sizing: border-box;
+
         }
 
+        /* Chrome, Safari */
+        #sidebar::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* LIST HOVER */
         #sidebar li:hover {
-            background-color: #e0e0e0;
-            color: #000;
+            background-color: red;
+            color: white;
+        }
+
+        /* LIST */
+        #location-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* PLACE INFO PANEL */
+        #info-panel {
+            position: absolute;
+            top: 5%;
+            right: 3%;
+            width: 90%;
+            max-width: 300px;
+            max-height: 400px;
+            overflow-y: auto;
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Orbitron', sans-serif;
+            z-index: 3;
+            box-sizing: border-box;
+        }
+
+        #info-content {
+            font-size: 20px;
+        }
+
+        #info-wrapper {
+            background-color: rgba(169, 169, 169, 0.85); /* unified background */
+            padding: 10px;
+            border-radius: 6px;
+        }
+
+        #info-wrapper h2 {
+            margin-top: 0;
+            font-size: 16px;
+        }
+
+        /* BUTTONs */
+        #button-controls {
+            margin-top: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding: 10px;
+            border-radius: 6px;
+            background-color: rgba(169, 169, 169, 0.85);
+        }
+
+        #btn-spin, #btn-reset {
+            font: bold 18px/20px 'Orbitron', Arial, Helvetica, sans-serif;
+            background-color: none;
+            color: black; 
+            border: none;
+            cursor: pointer;
+            padding: 18px 20px;
+            border-radius: 6px;
+            width: 100%;
+        }
+
+        #btn-spin:hover, #btn-reset:hover {
+            background-color: red;
+            color: white;
         }
         
+        /* POPUP BOXES */
+        .mapboxgl-popup-content {
+            background-color: red;   /* Popup background color */
+            color: #fff;              /* Text color */
+            border-radius: 8px;       /* Optional: rounded corners */
+            padding: 10px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 18px;
+            line-height: 1.4;
+        }
+
+        /* POPUP TIPS */
+        .mapboxgl-popup-tip {
+            display: none;
+        }
+
+        /* CHATGPT CODE MAKES IT MOBILE FRIENDLY. . . */
+        @media (max-width: 600px) {
+            .titleContainer,
+            #info-panel {
+                left: 5%;
+                right: 5%;
+                width: 90%;
+                max-width: none;
+                font-size: 14px;
+                padding: 10px;
+            }
+
+            #info-panel {
+                top: auto;
+                bottom: 5%;
+                max-height: 200px;
+            }
+        }
+
     </style>
 </head>
-<body>
 
-<div id="map"></div>
-<!-- title -->
-    <div
-        class="titleContainer">
-        <div class="TitleItem"><h1>The Hunger Games Franchise Filming Locations</h1><p>Created by: Kyle Marcelino</p><h2 style="margin-top: 45px"> Location</h2></div>
-        <!-- SIDEBAR -->
-        <div id="sidebar">
-            <ul id="location-list" style="list-style: none; padding-left: 0; margin: 0;"></ul>
+<body>
+    <!-- MAP -->
+    <div id="map"></div>
+    <!-- title -->
+        <div
+            class="titleContainer">
+            <div class="TitleItem">
+                <h1>The Hunger Games Franchise Filming Locations</h1>
+                <p>Created by: Kyle Marcelino</p>
+                <h2 style="margin-top: 45px"> Location</h2>
+            </div>
+
+            <!-- SIDEBAR -->
+            <div id="sidebar">
+                <ul id="location-list";"></ul>
+            </div>
+        </div>
+
+    <!-- INFO BOX -->
+    <div id="info-panel" style="
+        position: absolute;
+        top: 5%;
+        right: 5%;
+        width: 300px;
+        max-height: 400px;
+        overflow-y: auto;
+        background-color: rgba(255,255,255,0.95);
+        padding: 15px;
+        border-radius: 8px;
+        font-family: 'Orbitron', sans-serif;
+        z-index: 3;
+        ">
+        <div id="info-wrapper">
+            <h2>Place You've Selected</h2>
+            <div id="info-content"></div>
+        </div>
+        <!-- BUTTONS -->
+        <div id="button-controls">
+            <h2>Tools</h2>
+            <button id="btn-spin">Pause rotation</button>
+            <button id="btn-reset">Reset Zoom</button>
         </div>
     </div>
 
@@ -69,13 +214,15 @@
         container: 'map',
         style: 'mapbox://styles/radtadpole/clwqzovxr012001q19i793ocn',
         center: [-83.5362, 34.8433],
-        zoom: 8,
+        zoom: 6,
         minZoom: 3.3,
         maxZoom: 20
     });
 
+    // NAV CONTROLS
     map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
 
+    // MAP
     map.on('load', () => {
         // Load an image from an external URL.
         map.loadImage(
@@ -462,26 +609,6 @@
                             "geometry": {
                                 "type": "Point",
                                 "coordinates": [
-                                -84.3876845,
-                                33.748752,
-                                0
-                                ]
-                            },
-                            "properties": {
-                                "name": "Atlanta",
-                                'description':'<strong>Atlanta</strong>',
-                                "styleUrl": "#icon-1635-F9A825-nodesc",
-                                "icon-opacity": 1,
-                                "icon-color": "#f9a825",
-                                "icon-scale": 1,
-                                "icon": "https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png"
-                            }
-                            },
-                            {
-                            "type": "Feature",
-                            "geometry": {
-                                "type": "Point",
-                                "coordinates": [
                                 2.1153435,
                                 48.8662166,
                                 0
@@ -840,18 +967,130 @@
                         ]
                     },
                     cluster: true,
-                    clusterMaxZoom: 20, // Max zoom to cluster points on
+                    clusterMaxZoom: 10, // Max zoom to cluster points on
                     clusterRadius: 50 //radius of each cluster in pixels
                 });
+
+        // GLOBE SPIN FUNCT.
+        map.on('style.load', () => {
+            map.setFog({}); // Set the default atmosphere style
+        });
+
+        // The following values can be changed to control rotation speed:
+
+        // At low zooms, complete a revolution every two minutes.
+        const secondsPerRevolution = 320;
+        // Above zoom level 5, do not rotate.
+        const maxSpinZoom = 7;
+        // Rotate at intermediate speeds between zoom levels 3 and 5.
+        const slowSpinZoom = 3;
+
+        let spinResetTimer;
+        let userInteracting = false;
+        let spinEnabled = true;
+
+        function spinGlobe() {
+            const zoom = map.getZoom();
+            if (spinEnabled && !userInteracting && zoom < maxSpinZoom) {
+                let distancePerSecond = 360 / secondsPerRevolution;
+                if (zoom > slowSpinZoom) {
+                    // Slow spinning at higher zooms
+                    const zoomDif =
+                        (maxSpinZoom - zoom) / (maxSpinZoom - slowSpinZoom);
+                    distancePerSecond *= zoomDif;
+                }
+                const center = map.getCenter();
+                center.lng -= distancePerSecond;
+                // Smoothly animate the map over one second.
+                // When this animation is complete, it calls a 'moveend' event.
+                map.easeTo({ center, duration: 1000, easing: (n) => n });
+            }
+        }
+
+        // Pause spinning on interaction
+        map.on('mousedown', () => {
+            userInteracting = true;
+        });
+
+        // Restart spinning the globe when interaction is complete
+        map.on('mouseup', () => {
+            userInteracting = false;
+            spinGlobe();
+        });
+
+        // These events account for cases where the mouse has moved
+        // off the map, so 'mouseup' will not be fired.
+        map.on('dragend', () => {
+            userInteracting = false;
+            spinGlobe();
+        });
+        map.on('pitchend', () => {
+            userInteracting = false;
+            spinGlobe();
+        });
+        map.on('rotateend', () => {
+            userInteracting = false;
+            spinGlobe();
+        });
+
+        // When animation is complete, start spinning if there is no ongoing interaction
+        map.on('moveend', () => {
+            spinGlobe();
+        });
+
+        document.getElementById('btn-spin').addEventListener('click', (e) => {
+            spinEnabled = !spinEnabled;
+            if (spinEnabled) {
+                spinGlobe();
+                e.target.innerHTML = 'Pause rotation';
+            } else {
+                map.stop(); // Immediately end ongoing animation
+                e.target.innerHTML = 'Start rotation';
+            }
+        });
+
+        // ZOOM FUNCTION
+        map.on('wheel', () => {
+            userInteracting = true;
+            clearTimeout(spinResetTimer);
+            spinResetTimer = setTimeout(() => {
+                userInteracting = false;
+                spinGlobe();
+            }, 1000);
+        });
+
+        map.on('zoomstart', () => {
+            userInteracting = true;
+            clearTimeout(spinResetTimer);
+        });
+
+        map.on('zoomend', () => {
+            userInteracting = false;
+            spinGlobe();
+        });
+
+        spinGlobe();
+        // END OF GLOBE FUNCTIONS
+
+        // RESET BUTTON
+        document.getElementById('btn-reset').addEventListener('click', () => {
+            map.flyTo({
+                // center: [-83.5362, 34.8433], // 🔁 Your map’s original center
+                zoom: 6,
+                speed: 1.2,
+                curve: 1
+            });
+        });
 
                 // Add a layer to use the image to represent the data.
                 map.addLayer({
                     'id': 'unclustered-points',
                     'type': 'symbol',
                     'source': 'point', // reference the data source
+                    'filter': ['!', ['has', 'point_count']], // ✅ EXCLUDES clustered points
                     'layout': {
                         'icon-image': 'cat', // reference the image
-                        'icon-size': 0.26
+                        'icon-size': 0.067
                     }
                 });
 
@@ -899,23 +1138,32 @@
                     li.addEventListener('click', () => {
                         map.flyTo({
                             center: feature.geometry.coordinates,
-                            zoom: 12
+                            zoom: 16
                         });
 
-                        new mapboxgl.Popup()
+                        new mapboxgl.Popup({
+                            closeButton: true,
+                            closeOnClick: false,
+                            offset: 34
+                            })
                             .setLngLat(feature.geometry.coordinates)
                             .setHTML(feature.properties.description)
                             .addTo(map);
-                    });
+
+                            document.getElementById('info-content').innerHTML = feature.properties.description;
+                        });
+
                     listEl.appendChild(li);
+                    
                 });
 
         // Hover Popups
-            const popup = new mapboxgl.Popup({
+        const popup = new mapboxgl.Popup({
             closeButton: false,
-            closeOnClick: false
-            });
-
+            closeOnClick: false,
+            offset: 34
+        });
+        
         map.on('mouseenter', 'unclustered-points', (e) => {
             // Change the cursor style as a UI indicator.
             map.getCanvas().style.cursor = 'pointer';
@@ -943,22 +1191,29 @@
 
         // Click Feature for Popups
         map.on('click', 'unclustered-points', (e) => {
-            // Copy coordinates array.
             const coordinates = e.features[0].geometry.coordinates.slice();
             const description = e.features[0].properties.description;
 
-            // Ensure that if the map is zoomed out such that multiple
-            // copies of the feature are visible, the popup appears
-            // over the copy being pointed to.
-            while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-                coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-            }
+            // ✅ Fly to the marker
+            map.flyTo({
+                center: coordinates,
+                zoom: 16
+            });
 
-            new mapboxgl.Popup()
-                .setLngLat(coordinates)
-                .setHTML(description)
-                .addTo(map);
+            // ✅ Show a popup
+            new mapboxgl.Popup({
+                closeButton: true,
+                closeOnClick: false,
+                offset: 34
+            })
+            .setLngLat(coordinates)
+            .setHTML(description)
+            .addTo(map);
+
+            // ✅ Update info panel
+            document.getElementById('info-content').innerHTML = description;
         });
+
 
         // Change the cursor to a pointer when the mouse is over the places layer.
         map.on('mouseenter', 'unclustered-points', () => {
@@ -986,10 +1241,8 @@
                 });
             });
         });
+
     });
-</script>
-
-
 </script>
 
 </body>
