@@ -141,6 +141,48 @@
             display: none;
         }
 
+        /* SOURCES */
+        #sources-box {
+            display: none; /* 🔁 start hidden */
+            position: absolute;
+            bottom: 3%;
+            right: 11%;
+            width: 90%;
+            max-width: 380px;
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 14px;
+            z-index: 3;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            box-sizing: border-box;
+        }
+
+        #toggle-sources {
+            position: absolute;
+            bottom: 3%;
+            right: 5%;
+            padding: 10px 15px;
+            background-color: rgba(169, 169, 169, 0.85);
+            border: none;
+            border-radius: 6px;
+            font-family: 'Orbitron', sans-serif;
+            cursor: pointer;
+            z-index: 4;
+        }
+
+        #toggle-sources:hover {
+            background-color: red;
+            color: white;
+        }
+
+        .long-link {
+            white-space: nowrap;
+            overflow-x: auto;
+            max-width: 100%;
+        }
+
         /* CHATGPT CODE MAKES IT MOBILE FRIENDLY. . . */
         @media (max-width: 600px) {
             .titleContainer,
@@ -157,6 +199,12 @@
                 top: auto;
                 bottom: 5%;
                 max-height: 200px;
+            }
+
+            #sources-box {
+                width: 90vw;
+                left: 5vw;
+                font-size: 12px;
             }
         }
 
@@ -207,1043 +255,1070 @@
         </div>
     </div>
 
-<script>
-    mapboxgl.accessToken = 'pk.eyJ1IjoicmFkdGFkcG9sZSIsImEiOiJjbHVsaGpzNnExNDM4MmpudXMyamFpZTM2In0.rNrtDKpfSzqAa6PxIn_Wjw';
+    <!-- SOURCES  -->
+    <div id="sources-box">
+        <h2>Sources</h2>
+        <ul>
+            <li><a href="https://www.atlasofwonders.com/search?q=hunger+games" target="_blank">Atlas of Wonders</a></li>
+        </ul>
+        <h2>Panem Symbol:</h2>
+        <p class="long-link">
+            <a href="https://static.wikia.nocookie.net/tadhg/images/e/e2/GoldSealHuge.png" target="_blank">
+                https://static.wikia.nocookie.net/tadhg/images/e/e2/GoldSealHuge.png
+            </a>
+        </p>
+    </div>
+    <button id="toggle-sources">Show Sources</button>
 
-    var map = new mapboxgl.Map({
-        container: 'map',
-        style: 'mapbox://styles/radtadpole/clwqzovxr012001q19i793ocn',
-        center: [-83.5362, 34.8433],
-        zoom: 6,
-        minZoom: 3.3,
-        maxZoom: 20
-    });
 
-    // NAV CONTROLS
-    map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
 
-    // MAP
-    map.on('load', () => {
-        // Load an image from an external URL.
-        map.loadImage(
-            'https://static.wikia.nocookie.net/tadhg/images/e/e2/GoldSealHuge.png',
-            (error, image) => {
-                if (error) throw error;
+    <script>
+        mapboxgl.accessToken = 'pk.eyJ1IjoicmFkdGFkcG9sZSIsImEiOiJjbHVsaGpzNnExNDM4MmpudXMyamFpZTM2In0.rNrtDKpfSzqAa6PxIn_Wjw';
 
-                // Add the image to the map style.
-                map.addImage('cat', image);
-
-                // Add a data source containing one point feature.
-                map.addSource('point', {
-                    'type': 'geojson',
-                    'data': {
-                        'type': 'FeatureCollection',
-                        'features': [
-                                                    {
-                            "type": "Feature",
-                            "geometry": {
-                                "type": "Point",
-                                "coordinates": [
-                                -82.6034527,
-                                35.1899797,
-                                0
-                                ]
-                            },
-                            "properties": {
-                                "name": "DuPont State Recreational Forest",
-                                'description':
-                                '<strong>DuPont State Recreational Forest</strong>',
-                                "styleUrl": "#icon-1635-0288D1-nodesc",
-                                "icon-opacity": 1,
-                                "icon-color": "#0288d1",
-                                "icon-scale": 1,
-                                "icon": "https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png"
-                            }
-                            },
-                            {
-                            "type": "Feature",
-                            "geometry": {
-                                "type": "Point",
-                                "coordinates": [
-                                -81.4291128,
-                                35.6957652,
-                                0
-                                ]
-                            },
-                            "properties": {
-                                "name": "Henry River Mill Village",
-                                'description':
-                                '<strong>Henry River Mill Village</strong>',
-                                "styleUrl": "#icon-1635-0288D1-nodesc",
-                                "icon-opacity": 1,
-                                "icon-color": "#0288d1",
-                                "icon-scale": 1,
-                                "icon": "https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png"
-                            }
-                            },
-                            {
-                            "type": "Feature",
-                            "geometry": {
-                                "type": "Point",
-                                "coordinates": [
-                                -81.5356463,
-                                35.2923513,
-                                0
-                                ]
-                            },
-                            "properties": {
-                                "name": "Shelby",
-                                "styleUrl": "#icon-1635-0288D1-nodesc",
-                                'description':
-                                '<strong>Shelby</strong>',
-                                "icon-opacity": 1,
-                                "icon-color": "#0288d1",
-                                "icon-scale": 1,
-                                "icon": "https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png"
-                            }
-                            },
-                            {
-                            "type": "Feature",
-                            "geometry": {
-                                "type": "Point",
-                                "coordinates": [
-                                -84.416516,
-                                33.7860053,
-                                0
-                                ]
-                            },
-                            "properties": {
-                                "name": "The Goat Farm Arts Center",
-                                'description':'<strong>The Goat Farm Arts Center</strong>',
-                                "styleUrl": "#icon-1635-0288D1-nodesc",
-                                "icon-opacity": 1,
-                                "icon-color": "#0288d1",
-                                "icon-scale": 1,
-                                "icon": "https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png"
-                            }
-                            },
-                            {
-                            "type": "Feature",
-                            "geometry": {
-                                "type": "Point",
-                                "coordinates": [
-                                -82.345189,
-                                35.8021685,
-                                0
-                                ]
-                            },
-                            "properties": {
-                                "name": "Pisgah National Forest",
-                                'description':'<strong>Pisgah National Forest</strong>',
-                                "styleUrl": "#icon-1635-0288D1-nodesc",
-                                "icon-opacity": 1,
-                                "icon-color": "#0288d1",
-                                "icon-scale": 1,
-                                "icon": "https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png"
-                            }
-                            },
-                            {
-                            "type": "Feature",
-                            "geometry": {
-                                "type": "Point",
-                                "coordinates": [
-                                -80.8479202,
-                                35.2248586,
-                                0
-                                ]
-                            },
-                            "properties": {
-                                "name": "Knight Theater",
-                                'description':'<strong>Knight Theater</strong>',
-                                "styleUrl": "#icon-1635-0288D1-nodesc",
-                                "icon-opacity": 1,
-                                "icon-color": "#0288d1",
-                                "icon-scale": 1,
-                                "icon": "https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png"
-                            }
-                            },
-                            {
-                            "type": "Feature",
-                            "geometry": {
-                                "type": "Point",
-                                "coordinates": [
-                                -80.8464461,
-                                35.2226882,
-                                0
-                                ]
-                            },
-                            "properties": {
-                                "name": "Charlotte Convention Center",
-                                'description':'<strong>Charlotte Convention Center</strong>',
-                                "styleUrl": "#icon-1635-0288D1-nodesc",
-                                "icon-opacity": 1,
-                                "icon-color": "#0288d1",
-                                "icon-scale": 1,
-                                "icon": "https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png"
-                            }
-                            },
-                            {
-                            "type": "Feature",
-                            "geometry": {
-                                "type": "Point",
-                                "coordinates": [
-                                -82.3444175,
-                                35.6633219,
-                                0
-                                ]
-                            },
-                            "properties": {
-                                "name": "North Fork Reservoir",
-                                'description':'<strong>North Fork Reservoir</strong>',
-                                "styleUrl": "#icon-1635-0288D1-nodesc",
-                                "icon-opacity": 1,
-                                "icon-color": "#0288d1",
-                                "icon-scale": 1,
-                                "icon": "https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png"
-                            },
-                            "id": 7
-                            },
-                            {
-                            "type": "Feature",
-                            "geometry": {
-                                "type": "Point",
-                                "coordinates": [
-                                -84.3986469,
-                                33.7610245,
-                                0
-                                ]
-                            },
-                            "properties": {
-                                "name": "Georgia World Congress Center",
-                                'description':'<strong>Georgia World Congress Center</strong>',
-                                "styleUrl": "#icon-1635-C2185B-nodesc",
-                                "icon-opacity": 1,
-                                "icon-color": "#c2185b",
-                                "icon-scale": 1,
-                                "icon": "https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png"
-                            }
-                            },
-                            {
-                            "type": "Feature",
-                            "geometry": {
-                                "type": "Point",
-                                "coordinates": [
-                                -84.3875917,
-                                33.8404395,
-                                0
-                                ]
-                            },
-                            "properties": {
-                                "name": "Swan House at Atlanta History Center",
-                                'description':'<strong>Swan House at Atlanta History Center</strong>',
-                                "styleUrl": "#icon-1635-C2185B-nodesc",
-                                "icon-opacity": 1,
-                                "icon-color": "#c2185b",
-                                "icon-scale": 1,
-                                "icon": "https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png"
-                            }
-                            },
-                            {
-                            "type": "Feature",
-                            "geometry": {
-                                "type": "Point",
-                                "coordinates": [
-                                -84.628709,
-                                33.7525384,
-                                0
-                                ]
-                            },
-                            "properties": {
-                                "name": "Sweetwater Creek State Park",
-                                'description':'<strong>Sweetwater Creek State Park</strong>',
-                                "styleUrl": "#icon-1635-C2185B-nodesc",
-                                "icon-opacity": 1,
-                                "icon-color": "#c2185b",
-                                "icon-scale": 1,
-                                "icon": "https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png"
-                            }
-                            },
-                            {
-                            "type": "Feature",
-                            "geometry": {
-                                "type": "Point",
-                                "coordinates": [
-                                -84.416516,
-                                33.7860053,
-                                0
-                                ]
-                            },
-                            "properties": {
-                                "name": "The Goat Farm Arts Center",
-                                'description':'<strong>The Goat Farm Arts Center</strong>',
-                                "styleUrl": "#icon-1635-C2185B-nodesc",
-                                "icon-opacity": 1,
-                                "icon-color": "#c2185b",
-                                "icon-scale": 1,
-                                "icon": "https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png"
-                            }
-                            },
-                            {
-                            "type": "Feature",
-                            "geometry": {
-                                "type": "Point",
-                                "coordinates": [
-                                -84.3859444,
-                                33.761595,
-                                0
-                                ]
-                            },
-                            "properties": {
-                                "name": "Atlanta Marriott Marquis",
-                                'description':'<strong>Atlanta Marriott Marquis</strong>',
-                                "styleUrl": "#icon-1635-C2185B-nodesc",
-                                "icon-opacity": 1,
-                                "icon-color": "#c2185b",
-                                "icon-scale": 1,
-                                "icon": "https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png"
-                            }
-                            },
-                            {
-                            "type": "Feature",
-                            "geometry": {
-                                "type": "Point",
-                                "coordinates": [
-                                -84.3079452,
-                                33.876789,
-                                0
-                                ]
-                            },
-                            "properties": {
-                                "name": "DeKalb-Peachtree Airport",
-                                'description':'<strong>DeKalb-Peachtree Airport</strong>',
-                                "styleUrl": "#icon-1635-C2185B-nodesc",
-                                "icon-opacity": 1,
-                                "icon-color": "#c2185b",
-                                "icon-scale": 1,
-                                "icon": "https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png"
-                            }
-                            },
-                            {
-                            "type": "Feature",
-                            "geometry": {
-                                "type": "Point",
-                                "coordinates": [
-                                -157.997136,
-                                21.7031613,
-                                0
-                                ]
-                            },
-                            "properties": {
-                                "name": "Kawela Bay",
-                                'description':'<strong>Kawela Bay</strong>',
-                                "styleUrl": "#icon-1635-C2185B-nodesc",
-                                "icon-opacity": 1,
-                                "icon-color": "#c2185b",
-                                "icon-scale": 1,
-                                "icon": "https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png"
-                            }
-                            },
-                            {
-                            "type": "Feature",
-                            "geometry": {
-                                "type": "Point",
-                                "coordinates": [
-                                -158.060078,
-                                21.6400329,
-                                0
-                                ]
-                            },
-                            "properties": {
-                                "name": "Waimea Valley",
-                                'description':'<strong>Waimea Valley</strong>',
-                                "styleUrl": "#icon-1635-C2185B-nodesc",
-                                "icon-opacity": 1,
-                                "icon-color": "#c2185b",
-                                "icon-scale": 1,
-                                "icon": "https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png"
-                            }
-                            },
-                            {
-                            "type": "Feature",
-                            "geometry": {
-                                "type": "Point",
-                                "coordinates": [
-                                -84.3152872,
-                                33.535626,
-                                0
-                                ]
-                            },
-                            "properties": {
-                                "name": "Clayton County International Park",
-                                'description':'<strong>Clayton County International Park</strong>',
-                                "styleUrl": "#icon-1635-C2185B-nodesc",
-                                "icon-opacity": 1,
-                                "icon-color": "#c2185b",
-                                "icon-scale": 1,
-                                "icon": "https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png"
-                            }
-                            },
-                            {
-                            "type": "Feature",
-                            "geometry": {
-                                "type": "Point",
-                                "coordinates": [
-                                -84.3213796,
-                                32.8982051,
-                                0
-                                ]
-                            },
-                            "properties": {
-                                "name": "Thomaston Mills",
-                                'description':'<strong>Thomaston Mills</strong>',
-                                "styleUrl": "#icon-1635-F9A825-nodesc",
-                                "icon-opacity": 1,
-                                "icon-color": "#f9a825",
-                                "icon-scale": 1,
-                                "icon": "https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png"
-                            },
-                            "id": 17
-                            },
-                            {
-                            "type": "Feature",
-                            "geometry": {
-                                "type": "Point",
-                                "coordinates": [
-                                2.1153435,
-                                48.8662166,
-                                0
-                                ]
-                            },
-                            "properties": {
-                                "name": "Chateau de Voisins",
-                                'description':'<strong>Chateau de Voisins</strong>',
-                                "styleUrl": "#icon-1635-F9A825-nodesc",
-                                "icon-opacity": 1,
-                                "icon-color": "#f9a825",
-                                "icon-scale": 1,
-                                "icon": "https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png"
-                            }
-                            },
-                            {
-                            "type": "Feature",
-                            "geometry": {
-                                "type": "Point",
-                                "coordinates": [
-                                13.7896198,
-                                52.4844071,
-                                0
-                                ]
-                            },
-                            "properties": {
-                                "name": "Chemiewerk in Rüdersdorf",
-                                'description':'<strong>Chemiewerk in Rüdersdorf</strong>',
-                                "styleUrl": "#icon-1635-F9A825-nodesc",
-                                "icon-opacity": 1,
-                                "icon-color": "#f9a825",
-                                "icon-scale": 1,
-                                "icon": "https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png"
-                            }
-                            },
-                            {
-                            "type": "Feature",
-                            "geometry": {
-                                "type": "Point",
-                                "coordinates": [
-                                13.4202274,
-                                52.5104936,
-                                0
-                                ]
-                            },
-                            "properties": {
-                                "name": "Kraftwerk Berlin",
-                                'description':'<strong>Kraftwerk Berlin</strong>',
-                                "styleUrl": "#icon-1635-F9A825-nodesc",
-                                "icon-opacity": 1,
-                                "icon-color": "#f9a825",
-                                "icon-scale": 1,
-                                "icon": "https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png"
-                            }
-                            },
-                            {
-                            "type": "Feature",
-                            "geometry": {
-                                "type": "Point",
-                                "coordinates": [
-                                2.542286,
-                                48.8399695,
-                                0
-                                ]
-                            },
-                            "properties": {
-                                "name": "Espaces d'Abraxas",
-                                'description':'<strong>Espaces d"Abraxas</strong>',
-                                "styleUrl": "#icon-1635-558B2F-nodesc",
-                                "icon-opacity": 1,
-                                "icon-color": "#558b2f",
-                                "icon-scale": 1,
-                                "icon": "https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png"
-                            }
-                            },
-                            {
-                            "type": "Feature",
-                            "geometry": {
-                                "type": "Point",
-                                "coordinates": [
-                                2.38822,
-                                48.813055,
-                                0
-                                ]
-                            },
-                            "properties": {
-                                "name": "Ivry-sur-Seine",
-                                'description':'<strong>Ivry-sur-Seine</strong>',
-                                "styleUrl": "#icon-1635-558B2F-nodesc",
-                                "icon-opacity": 1,
-                                "icon-color": "#558b2f",
-                                "icon-scale": 1,
-                                "icon": "https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png"
-                            }
-                            },
-                            {
-                            "type": "Feature",
-                            "geometry": {
-                                "type": "Point",
-                                "coordinates": [
-                                1.8173758,
-                                48.6453914,
-                                0
-                                ]
-                            },
-                            "properties": {
-                                "name": "Château de Rambouillet",
-                                'description':'<strong>Château de Rambouillet</strong>',
-                                "styleUrl": "#icon-1635-558B2F-nodesc",
-                                "icon-opacity": 1,
-                                "icon-color": "#558b2f",
-                                "icon-scale": 1,
-                                "icon": "https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png"
-                            }
-                            },
-                            {
-                            "type": "Feature",
-                            "geometry": {
-                                "type": "Point",
-                                "coordinates": [
-                                13.3891911,
-                                52.4821151,
-                                0
-                                ]
-                            },
-                            "properties": {
-                                "name": "Tempelhof Airport",
-                                'description':'<strong>Tempelhof Airport</strong>',
-                                "styleUrl": "#icon-1635-558B2F-nodesc",
-                                "icon-opacity": 1,
-                                "icon-color": "#558b2f",
-                                "icon-scale": 1,
-                                "icon": "https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png"
-                            }
-                            },
-                            {
-                            "type": "Feature",
-                            "geometry": {
-                                "type": "Point",
-                                "coordinates": [
-                                13.1028718,
-                                52.3875629,
-                                0
-                                ]
-                            },
-                            "properties": {
-                                "name": "Babelsberg",
-                                'description':'<strong>Babelsberg</strong>',
-                                "styleUrl": "#icon-1635-558B2F-nodesc",
-                                "icon-opacity": 1,
-                                "icon-color": "#558b2f",
-                                "icon-scale": 1,
-                                "icon": "https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png"
-                            }
-                            },
-                            {
-                            "type": "Feature",
-                            "geometry": {
-                                "type": "Point",
-                                "coordinates": [
-                                17.077285,
-                                51.1068688,
-                                0
-                                ]
-                            },
-                            "properties": {
-                                "name": "Centennial Hall",
-                                'description':'<strong>Centennial Hall</strong>',
-                                "styleUrl": "#icon-1635-FF5252-nodesc",
-                                "icon-opacity": 1,
-                                "icon-color": "#ff5252",
-                                "icon-scale": 1,
-                                "icon": "https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png"
-                            }
-                            },
-                            {
-                            "type": "Feature",
-                            "geometry": {
-                                "type": "Point",
-                                "coordinates": [
-                                16.1695948,
-                                50.7310517,
-                                0
-                                ]
-                            },
-                            "properties": {
-                                "name": "Zalew Grzędy",
-                                'description':'<strong>Zalew Grzędy</strong>',
-                                "styleUrl": "#icon-1635-FF5252-nodesc",
-                                "icon-opacity": 1,
-                                "icon-color": "#ff5252",
-                                "icon-scale": 1,
-                                "icon": "https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png"
-                            }
-                            },
-                            {
-                            "type": "Feature",
-                            "geometry": {
-                                "type": "Point",
-                                "coordinates": [
-                                6.7815208,
-                                51.4805702,
-                                0
-                                ]
-                            },
-                            "properties": {
-                                "name": "Im Landschaftspark",
-                                'description':'<strong>Im Landschaftspark</strong>',
-                                "styleUrl": "#icon-1635-FF5252-nodesc",
-                                "icon-opacity": 1,
-                                "icon-color": "#ff5252",
-                                "icon-scale": 1,
-                                "icon": "https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png"
-                            }
-                            },
-                            {
-                            "type": "Feature",
-                            "geometry": {
-                                "type": "Point",
-                                "coordinates": [
-                                12.4132675,
-                                51.3123671,
-                                0
-                                ]
-                            },
-                            "properties": {
-                                "name": "Monument to the Battle of the Nations",
-                                'description':'<strong>Monument to the Battle of the Nations</strong>',
-                                "styleUrl": "#icon-1635-FF5252-nodesc",
-                                "icon-opacity": 1,
-                                "icon-color": "#ff5252",
-                                "icon-scale": 1,
-                                "icon": "https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png"
-                            }
-                            },
-                            {
-                            "type": "Feature",
-                            "geometry": {
-                                "type": "Point",
-                                "coordinates": [
-                                13.4932452,
-                                52.4604215,
-                                0
-                                ]
-                            },
-                            "properties": {
-                                "name": "Krematorium Berlin",
-                                'description':'<strong>Krematorium Berlin</strong>',
-                                "styleUrl": "#icon-1635-FF5252-nodesc",
-                                "icon-opacity": 1,
-                                "icon-color": "#ff5252",
-                                "icon-scale": 1,
-                                "icon": "https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png"
-                            }
-                            },
-                            {
-                            "type": "Feature",
-                            "geometry": {
-                                "type": "Point",
-                                "coordinates": [
-                                13.239517,
-                                52.5146782,
-                                0
-                                ]
-                            },
-                            "properties": {
-                                "name": "Olympiastadion Berlin",
-                                'description':'<strong>Olympiastadion Berlin</strong>',
-                                "styleUrl": "#icon-1635-FF5252-nodesc",
-                                "icon-opacity": 1,
-                                "icon-color": "#ff5252",
-                                "icon-scale": 1,
-                                "icon": "https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png"
-                            }
-                            },
-                            {
-                            "type": "Feature",
-                            "geometry": {
-                                "type": "Point",
-                                "coordinates": [
-                                13.4118391,
-                                52.4323861,
-                                0
-                                ]
-                            },
-                            "properties": {
-                                "name": "Britzer Garten",
-                                'description':'<strong>Britzer Garten</strong>',
-                                "styleUrl": "#icon-1635-FF5252-nodesc",
-                                "icon-opacity": 1,
-                                "icon-color": "#ff5252",
-                                "icon-scale": 1,
-                                "icon": "https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png"
-                            }
-                            },
-                            {
-                            "type": "Feature",
-                            "geometry": {
-                                "type": "Point",
-                                "coordinates": [
-                                13.3987445,
-                                52.5194665,
-                                0
-                                ]
-                            },
-                            "properties": {
-                                "name": "Altes Museum",
-                                'description':'<strong>Altes Museum</strong>',
-                                "styleUrl": "#icon-1635-FF5252-nodesc",
-                                "icon-opacity": 1,
-                                "icon-color": "#ff5252",
-                                "icon-scale": 1,
-                                "icon": "https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png"
-                            }
-                            },
-                            {
-                            "type": "Feature",
-                            "geometry": {
-                                "type": "Point",
-                                "coordinates": [
-                                13.4116592,
-                                52.5165707,
-                                0
-                                ]
-                            },
-                            "properties": {
-                                "name": "Bärensaal",
-                                'description':'<strong>Bärensaal</strong>',
-                                "styleUrl": "#icon-1635-FF5252-nodesc",
-                                "icon-opacity": 1,
-                                "icon-color": "#ff5252",
-                                "icon-scale": 1,
-                                "icon": "https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png"
-                            }
-                            },
-                            {
-                            "type": "Feature",
-                            "geometry": {
-                                "type": "Point",
-                                "coordinates": [
-                                13.3812447,
-                                52.5251088,
-                                0
-                                ]
-                            },
-                            "properties": {
-                                "name": "Veterinary Anatomy Theater",
-                                'description':'<strong>Veterinary Anatomy Theater</strong>',
-                                "styleUrl": "#icon-1635-FF5252-nodesc",
-                                "icon-opacity": 1,
-                                "icon-color": "#ff5252",
-                                "icon-scale": 1,
-                                "icon": "https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png"
-                            }
-                            }
-                        ]
-                    },
-                    cluster: true,
-                    clusterMaxZoom: 10, // Max zoom to cluster points on
-                    clusterRadius: 50 //radius of each cluster in pixels
-                });
-
-        // GLOBE SPIN FUNCT.
-        map.on('style.load', () => {
-            map.setFog({}); // Set the default atmosphere style
+        var map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/radtadpole/clwqzovxr012001q19i793ocn',
+            center: [-83.5362, 34.8433],
+            zoom: 6,
+            minZoom: 3.3,
+            maxZoom: 20
         });
 
-        // The following values can be changed to control rotation speed:
+        // NAV CONTROLS
+        map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
 
-        // At low zooms, complete a revolution every two minutes.
-        const secondsPerRevolution = 320;
-        // Above zoom level 5, do not rotate.
-        const maxSpinZoom = 7;
-        // Rotate at intermediate speeds between zoom levels 3 and 5.
-        const slowSpinZoom = 3;
+        // MAP
+        map.on('load', () => {
+            // Load an image from an external URL.
+            map.loadImage(
+                'https://static.wikia.nocookie.net/tadhg/images/e/e2/GoldSealHuge.png',
+                (error, image) => {
+                    if (error) throw error;
 
-        let spinResetTimer;
-        let userInteracting = false;
-        let spinEnabled = true;
+                    // Add the image to the map style.
+                    map.addImage('cat', image);
 
-        function spinGlobe() {
-            const zoom = map.getZoom();
-            if (spinEnabled && !userInteracting && zoom < maxSpinZoom) {
-                let distancePerSecond = 360 / secondsPerRevolution;
-                if (zoom > slowSpinZoom) {
-                    // Slow spinning at higher zooms
-                    const zoomDif =
-                        (maxSpinZoom - zoom) / (maxSpinZoom - slowSpinZoom);
-                    distancePerSecond *= zoomDif;
+                    // Add a data source containing one point feature.
+                    map.addSource('point', {
+                        'type': 'geojson',
+                        'data': {
+                            'type': 'FeatureCollection',
+                            'features': [
+                                                        {
+                                "type": "Feature",
+                                "geometry": {
+                                    "type": "Point",
+                                    "coordinates": [
+                                    -82.6034527,
+                                    35.1899797,
+                                    0
+                                    ]
+                                },
+                                "properties": {
+                                    "name": "DuPont State Recreational Forest",
+                                    'description':
+                                    '<strong>DuPont State Recreational Forest</strong>',
+                                    "styleUrl": "#icon-1635-0288D1-nodesc",
+                                    "icon-opacity": 1,
+                                    "icon-color": "#0288d1",
+                                    "icon-scale": 1,
+                                    "icon": "https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png"
+                                }
+                                },
+                                {
+                                "type": "Feature",
+                                "geometry": {
+                                    "type": "Point",
+                                    "coordinates": [
+                                    -81.4291128,
+                                    35.6957652,
+                                    0
+                                    ]
+                                },
+                                "properties": {
+                                    "name": "Henry River Mill Village",
+                                    'description':
+                                    '<strong>Henry River Mill Village</strong>',
+                                    "styleUrl": "#icon-1635-0288D1-nodesc",
+                                    "icon-opacity": 1,
+                                    "icon-color": "#0288d1",
+                                    "icon-scale": 1,
+                                    "icon": "https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png"
+                                }
+                                },
+                                {
+                                "type": "Feature",
+                                "geometry": {
+                                    "type": "Point",
+                                    "coordinates": [
+                                    -81.5356463,
+                                    35.2923513,
+                                    0
+                                    ]
+                                },
+                                "properties": {
+                                    "name": "Shelby",
+                                    "styleUrl": "#icon-1635-0288D1-nodesc",
+                                    'description':
+                                    '<strong>Shelby</strong>',
+                                    "icon-opacity": 1,
+                                    "icon-color": "#0288d1",
+                                    "icon-scale": 1,
+                                    "icon": "https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png"
+                                }
+                                },
+                                {
+                                "type": "Feature",
+                                "geometry": {
+                                    "type": "Point",
+                                    "coordinates": [
+                                    -84.416516,
+                                    33.7860053,
+                                    0
+                                    ]
+                                },
+                                "properties": {
+                                    "name": "The Goat Farm Arts Center",
+                                    'description':'<strong>The Goat Farm Arts Center</strong>',
+                                    "styleUrl": "#icon-1635-0288D1-nodesc",
+                                    "icon-opacity": 1,
+                                    "icon-color": "#0288d1",
+                                    "icon-scale": 1,
+                                    "icon": "https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png"
+                                }
+                                },
+                                {
+                                "type": "Feature",
+                                "geometry": {
+                                    "type": "Point",
+                                    "coordinates": [
+                                    -82.345189,
+                                    35.8021685,
+                                    0
+                                    ]
+                                },
+                                "properties": {
+                                    "name": "Pisgah National Forest",
+                                    'description':'<strong>Pisgah National Forest</strong>',
+                                    "styleUrl": "#icon-1635-0288D1-nodesc",
+                                    "icon-opacity": 1,
+                                    "icon-color": "#0288d1",
+                                    "icon-scale": 1,
+                                    "icon": "https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png"
+                                }
+                                },
+                                {
+                                "type": "Feature",
+                                "geometry": {
+                                    "type": "Point",
+                                    "coordinates": [
+                                    -80.8479202,
+                                    35.2248586,
+                                    0
+                                    ]
+                                },
+                                "properties": {
+                                    "name": "Knight Theater",
+                                    'description':'<strong>Knight Theater</strong>',
+                                    "styleUrl": "#icon-1635-0288D1-nodesc",
+                                    "icon-opacity": 1,
+                                    "icon-color": "#0288d1",
+                                    "icon-scale": 1,
+                                    "icon": "https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png"
+                                }
+                                },
+                                {
+                                "type": "Feature",
+                                "geometry": {
+                                    "type": "Point",
+                                    "coordinates": [
+                                    -80.8464461,
+                                    35.2226882,
+                                    0
+                                    ]
+                                },
+                                "properties": {
+                                    "name": "Charlotte Convention Center",
+                                    'description':'<strong>Charlotte Convention Center</strong>',
+                                    "styleUrl": "#icon-1635-0288D1-nodesc",
+                                    "icon-opacity": 1,
+                                    "icon-color": "#0288d1",
+                                    "icon-scale": 1,
+                                    "icon": "https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png"
+                                }
+                                },
+                                {
+                                "type": "Feature",
+                                "geometry": {
+                                    "type": "Point",
+                                    "coordinates": [
+                                    -82.3444175,
+                                    35.6633219,
+                                    0
+                                    ]
+                                },
+                                "properties": {
+                                    "name": "North Fork Reservoir",
+                                    'description':'<strong>North Fork Reservoir</strong>',
+                                    "styleUrl": "#icon-1635-0288D1-nodesc",
+                                    "icon-opacity": 1,
+                                    "icon-color": "#0288d1",
+                                    "icon-scale": 1,
+                                    "icon": "https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png"
+                                },
+                                "id": 7
+                                },
+                                {
+                                "type": "Feature",
+                                "geometry": {
+                                    "type": "Point",
+                                    "coordinates": [
+                                    -84.3986469,
+                                    33.7610245,
+                                    0
+                                    ]
+                                },
+                                "properties": {
+                                    "name": "Georgia World Congress Center",
+                                    'description':'<strong>Georgia World Congress Center</strong>',
+                                    "styleUrl": "#icon-1635-C2185B-nodesc",
+                                    "icon-opacity": 1,
+                                    "icon-color": "#c2185b",
+                                    "icon-scale": 1,
+                                    "icon": "https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png"
+                                }
+                                },
+                                {
+                                "type": "Feature",
+                                "geometry": {
+                                    "type": "Point",
+                                    "coordinates": [
+                                    -84.3875917,
+                                    33.8404395,
+                                    0
+                                    ]
+                                },
+                                "properties": {
+                                    "name": "Swan House at Atlanta History Center",
+                                    'description':'<strong>Swan House at Atlanta History Center</strong>',
+                                    "styleUrl": "#icon-1635-C2185B-nodesc",
+                                    "icon-opacity": 1,
+                                    "icon-color": "#c2185b",
+                                    "icon-scale": 1,
+                                    "icon": "https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png"
+                                }
+                                },
+                                {
+                                "type": "Feature",
+                                "geometry": {
+                                    "type": "Point",
+                                    "coordinates": [
+                                    -84.628709,
+                                    33.7525384,
+                                    0
+                                    ]
+                                },
+                                "properties": {
+                                    "name": "Sweetwater Creek State Park",
+                                    'description':'<strong>Sweetwater Creek State Park</strong>',
+                                    "styleUrl": "#icon-1635-C2185B-nodesc",
+                                    "icon-opacity": 1,
+                                    "icon-color": "#c2185b",
+                                    "icon-scale": 1,
+                                    "icon": "https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png"
+                                }
+                                },
+                                {
+                                "type": "Feature",
+                                "geometry": {
+                                    "type": "Point",
+                                    "coordinates": [
+                                    -84.416516,
+                                    33.7860053,
+                                    0
+                                    ]
+                                },
+                                "properties": {
+                                    "name": "The Goat Farm Arts Center",
+                                    'description':'<strong>The Goat Farm Arts Center</strong>',
+                                    "styleUrl": "#icon-1635-C2185B-nodesc",
+                                    "icon-opacity": 1,
+                                    "icon-color": "#c2185b",
+                                    "icon-scale": 1,
+                                    "icon": "https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png"
+                                }
+                                },
+                                {
+                                "type": "Feature",
+                                "geometry": {
+                                    "type": "Point",
+                                    "coordinates": [
+                                    -84.3859444,
+                                    33.761595,
+                                    0
+                                    ]
+                                },
+                                "properties": {
+                                    "name": "Atlanta Marriott Marquis",
+                                    'description':'<strong>Atlanta Marriott Marquis</strong>',
+                                    "styleUrl": "#icon-1635-C2185B-nodesc",
+                                    "icon-opacity": 1,
+                                    "icon-color": "#c2185b",
+                                    "icon-scale": 1,
+                                    "icon": "https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png"
+                                }
+                                },
+                                {
+                                "type": "Feature",
+                                "geometry": {
+                                    "type": "Point",
+                                    "coordinates": [
+                                    -84.3079452,
+                                    33.876789,
+                                    0
+                                    ]
+                                },
+                                "properties": {
+                                    "name": "DeKalb-Peachtree Airport",
+                                    'description':'<strong>DeKalb-Peachtree Airport</strong>',
+                                    "styleUrl": "#icon-1635-C2185B-nodesc",
+                                    "icon-opacity": 1,
+                                    "icon-color": "#c2185b",
+                                    "icon-scale": 1,
+                                    "icon": "https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png"
+                                }
+                                },
+                                {
+                                "type": "Feature",
+                                "geometry": {
+                                    "type": "Point",
+                                    "coordinates": [
+                                    -157.997136,
+                                    21.7031613,
+                                    0
+                                    ]
+                                },
+                                "properties": {
+                                    "name": "Kawela Bay",
+                                    'description':'<strong>Kawela Bay</strong>',
+                                    "styleUrl": "#icon-1635-C2185B-nodesc",
+                                    "icon-opacity": 1,
+                                    "icon-color": "#c2185b",
+                                    "icon-scale": 1,
+                                    "icon": "https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png"
+                                }
+                                },
+                                {
+                                "type": "Feature",
+                                "geometry": {
+                                    "type": "Point",
+                                    "coordinates": [
+                                    -158.060078,
+                                    21.6400329,
+                                    0
+                                    ]
+                                },
+                                "properties": {
+                                    "name": "Waimea Valley",
+                                    'description':'<strong>Waimea Valley</strong>',
+                                    "styleUrl": "#icon-1635-C2185B-nodesc",
+                                    "icon-opacity": 1,
+                                    "icon-color": "#c2185b",
+                                    "icon-scale": 1,
+                                    "icon": "https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png"
+                                }
+                                },
+                                {
+                                "type": "Feature",
+                                "geometry": {
+                                    "type": "Point",
+                                    "coordinates": [
+                                    -84.3152872,
+                                    33.535626,
+                                    0
+                                    ]
+                                },
+                                "properties": {
+                                    "name": "Clayton County International Park",
+                                    'description':'<strong>Clayton County International Park</strong>',
+                                    "styleUrl": "#icon-1635-C2185B-nodesc",
+                                    "icon-opacity": 1,
+                                    "icon-color": "#c2185b",
+                                    "icon-scale": 1,
+                                    "icon": "https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png"
+                                }
+                                },
+                                {
+                                "type": "Feature",
+                                "geometry": {
+                                    "type": "Point",
+                                    "coordinates": [
+                                    -84.3213796,
+                                    32.8982051,
+                                    0
+                                    ]
+                                },
+                                "properties": {
+                                    "name": "Thomaston Mills",
+                                    'description':'<strong>Thomaston Mills</strong>',
+                                    "styleUrl": "#icon-1635-F9A825-nodesc",
+                                    "icon-opacity": 1,
+                                    "icon-color": "#f9a825",
+                                    "icon-scale": 1,
+                                    "icon": "https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png"
+                                },
+                                "id": 17
+                                },
+                                {
+                                "type": "Feature",
+                                "geometry": {
+                                    "type": "Point",
+                                    "coordinates": [
+                                    2.1153435,
+                                    48.8662166,
+                                    0
+                                    ]
+                                },
+                                "properties": {
+                                    "name": "Chateau de Voisins",
+                                    'description':'<strong>Chateau de Voisins</strong>',
+                                    "styleUrl": "#icon-1635-F9A825-nodesc",
+                                    "icon-opacity": 1,
+                                    "icon-color": "#f9a825",
+                                    "icon-scale": 1,
+                                    "icon": "https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png"
+                                }
+                                },
+                                {
+                                "type": "Feature",
+                                "geometry": {
+                                    "type": "Point",
+                                    "coordinates": [
+                                    13.7896198,
+                                    52.4844071,
+                                    0
+                                    ]
+                                },
+                                "properties": {
+                                    "name": "Chemiewerk in Rüdersdorf",
+                                    'description':'<strong>Chemiewerk in Rüdersdorf</strong>',
+                                    "styleUrl": "#icon-1635-F9A825-nodesc",
+                                    "icon-opacity": 1,
+                                    "icon-color": "#f9a825",
+                                    "icon-scale": 1,
+                                    "icon": "https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png"
+                                }
+                                },
+                                {
+                                "type": "Feature",
+                                "geometry": {
+                                    "type": "Point",
+                                    "coordinates": [
+                                    13.4202274,
+                                    52.5104936,
+                                    0
+                                    ]
+                                },
+                                "properties": {
+                                    "name": "Kraftwerk Berlin",
+                                    'description':'<strong>Kraftwerk Berlin</strong>',
+                                    "styleUrl": "#icon-1635-F9A825-nodesc",
+                                    "icon-opacity": 1,
+                                    "icon-color": "#f9a825",
+                                    "icon-scale": 1,
+                                    "icon": "https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png"
+                                }
+                                },
+                                {
+                                "type": "Feature",
+                                "geometry": {
+                                    "type": "Point",
+                                    "coordinates": [
+                                    2.542286,
+                                    48.8399695,
+                                    0
+                                    ]
+                                },
+                                "properties": {
+                                    "name": "Espaces d'Abraxas",
+                                    'description':'<strong>Espaces d"Abraxas</strong>',
+                                    "styleUrl": "#icon-1635-558B2F-nodesc",
+                                    "icon-opacity": 1,
+                                    "icon-color": "#558b2f",
+                                    "icon-scale": 1,
+                                    "icon": "https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png"
+                                }
+                                },
+                                {
+                                "type": "Feature",
+                                "geometry": {
+                                    "type": "Point",
+                                    "coordinates": [
+                                    2.38822,
+                                    48.813055,
+                                    0
+                                    ]
+                                },
+                                "properties": {
+                                    "name": "Ivry-sur-Seine",
+                                    'description':'<strong>Ivry-sur-Seine</strong>',
+                                    "styleUrl": "#icon-1635-558B2F-nodesc",
+                                    "icon-opacity": 1,
+                                    "icon-color": "#558b2f",
+                                    "icon-scale": 1,
+                                    "icon": "https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png"
+                                }
+                                },
+                                {
+                                "type": "Feature",
+                                "geometry": {
+                                    "type": "Point",
+                                    "coordinates": [
+                                    1.8173758,
+                                    48.6453914,
+                                    0
+                                    ]
+                                },
+                                "properties": {
+                                    "name": "Château de Rambouillet",
+                                    'description':'<strong>Château de Rambouillet</strong>',
+                                    "styleUrl": "#icon-1635-558B2F-nodesc",
+                                    "icon-opacity": 1,
+                                    "icon-color": "#558b2f",
+                                    "icon-scale": 1,
+                                    "icon": "https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png"
+                                }
+                                },
+                                {
+                                "type": "Feature",
+                                "geometry": {
+                                    "type": "Point",
+                                    "coordinates": [
+                                    13.3891911,
+                                    52.4821151,
+                                    0
+                                    ]
+                                },
+                                "properties": {
+                                    "name": "Tempelhof Airport",
+                                    'description':'<strong>Tempelhof Airport</strong>',
+                                    "styleUrl": "#icon-1635-558B2F-nodesc",
+                                    "icon-opacity": 1,
+                                    "icon-color": "#558b2f",
+                                    "icon-scale": 1,
+                                    "icon": "https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png"
+                                }
+                                },
+                                {
+                                "type": "Feature",
+                                "geometry": {
+                                    "type": "Point",
+                                    "coordinates": [
+                                    13.1028718,
+                                    52.3875629,
+                                    0
+                                    ]
+                                },
+                                "properties": {
+                                    "name": "Babelsberg",
+                                    'description':'<strong>Babelsberg</strong>',
+                                    "styleUrl": "#icon-1635-558B2F-nodesc",
+                                    "icon-opacity": 1,
+                                    "icon-color": "#558b2f",
+                                    "icon-scale": 1,
+                                    "icon": "https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png"
+                                }
+                                },
+                                {
+                                "type": "Feature",
+                                "geometry": {
+                                    "type": "Point",
+                                    "coordinates": [
+                                    17.077285,
+                                    51.1068688,
+                                    0
+                                    ]
+                                },
+                                "properties": {
+                                    "name": "Centennial Hall",
+                                    'description':'<strong>Centennial Hall</strong>',
+                                    "styleUrl": "#icon-1635-FF5252-nodesc",
+                                    "icon-opacity": 1,
+                                    "icon-color": "#ff5252",
+                                    "icon-scale": 1,
+                                    "icon": "https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png"
+                                }
+                                },
+                                {
+                                "type": "Feature",
+                                "geometry": {
+                                    "type": "Point",
+                                    "coordinates": [
+                                    16.1695948,
+                                    50.7310517,
+                                    0
+                                    ]
+                                },
+                                "properties": {
+                                    "name": "Zalew Grzędy",
+                                    'description':'<strong>Zalew Grzędy</strong>',
+                                    "styleUrl": "#icon-1635-FF5252-nodesc",
+                                    "icon-opacity": 1,
+                                    "icon-color": "#ff5252",
+                                    "icon-scale": 1,
+                                    "icon": "https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png"
+                                }
+                                },
+                                {
+                                "type": "Feature",
+                                "geometry": {
+                                    "type": "Point",
+                                    "coordinates": [
+                                    6.7815208,
+                                    51.4805702,
+                                    0
+                                    ]
+                                },
+                                "properties": {
+                                    "name": "Im Landschaftspark",
+                                    'description':'<strong>Im Landschaftspark</strong>',
+                                    "styleUrl": "#icon-1635-FF5252-nodesc",
+                                    "icon-opacity": 1,
+                                    "icon-color": "#ff5252",
+                                    "icon-scale": 1,
+                                    "icon": "https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png"
+                                }
+                                },
+                                {
+                                "type": "Feature",
+                                "geometry": {
+                                    "type": "Point",
+                                    "coordinates": [
+                                    12.4132675,
+                                    51.3123671,
+                                    0
+                                    ]
+                                },
+                                "properties": {
+                                    "name": "Monument to the Battle of the Nations",
+                                    'description':'<strong>Monument to the Battle of the Nations</strong>',
+                                    "styleUrl": "#icon-1635-FF5252-nodesc",
+                                    "icon-opacity": 1,
+                                    "icon-color": "#ff5252",
+                                    "icon-scale": 1,
+                                    "icon": "https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png"
+                                }
+                                },
+                                {
+                                "type": "Feature",
+                                "geometry": {
+                                    "type": "Point",
+                                    "coordinates": [
+                                    13.4932452,
+                                    52.4604215,
+                                    0
+                                    ]
+                                },
+                                "properties": {
+                                    "name": "Krematorium Berlin",
+                                    'description':'<strong>Krematorium Berlin</strong>',
+                                    "styleUrl": "#icon-1635-FF5252-nodesc",
+                                    "icon-opacity": 1,
+                                    "icon-color": "#ff5252",
+                                    "icon-scale": 1,
+                                    "icon": "https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png"
+                                }
+                                },
+                                {
+                                "type": "Feature",
+                                "geometry": {
+                                    "type": "Point",
+                                    "coordinates": [
+                                    13.239517,
+                                    52.5146782,
+                                    0
+                                    ]
+                                },
+                                "properties": {
+                                    "name": "Olympiastadion Berlin",
+                                    'description':'<strong>Olympiastadion Berlin</strong>',
+                                    "styleUrl": "#icon-1635-FF5252-nodesc",
+                                    "icon-opacity": 1,
+                                    "icon-color": "#ff5252",
+                                    "icon-scale": 1,
+                                    "icon": "https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png"
+                                }
+                                },
+                                {
+                                "type": "Feature",
+                                "geometry": {
+                                    "type": "Point",
+                                    "coordinates": [
+                                    13.4118391,
+                                    52.4323861,
+                                    0
+                                    ]
+                                },
+                                "properties": {
+                                    "name": "Britzer Garten",
+                                    'description':'<strong>Britzer Garten</strong>',
+                                    "styleUrl": "#icon-1635-FF5252-nodesc",
+                                    "icon-opacity": 1,
+                                    "icon-color": "#ff5252",
+                                    "icon-scale": 1,
+                                    "icon": "https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png"
+                                }
+                                },
+                                {
+                                "type": "Feature",
+                                "geometry": {
+                                    "type": "Point",
+                                    "coordinates": [
+                                    13.3987445,
+                                    52.5194665,
+                                    0
+                                    ]
+                                },
+                                "properties": {
+                                    "name": "Altes Museum",
+                                    'description':'<strong>Altes Museum</strong>',
+                                    "styleUrl": "#icon-1635-FF5252-nodesc",
+                                    "icon-opacity": 1,
+                                    "icon-color": "#ff5252",
+                                    "icon-scale": 1,
+                                    "icon": "https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png"
+                                }
+                                },
+                                {
+                                "type": "Feature",
+                                "geometry": {
+                                    "type": "Point",
+                                    "coordinates": [
+                                    13.4116592,
+                                    52.5165707,
+                                    0
+                                    ]
+                                },
+                                "properties": {
+                                    "name": "Bärensaal",
+                                    'description':'<strong>Bärensaal</strong>',
+                                    "styleUrl": "#icon-1635-FF5252-nodesc",
+                                    "icon-opacity": 1,
+                                    "icon-color": "#ff5252",
+                                    "icon-scale": 1,
+                                    "icon": "https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png"
+                                }
+                                },
+                                {
+                                "type": "Feature",
+                                "geometry": {
+                                    "type": "Point",
+                                    "coordinates": [
+                                    13.3812447,
+                                    52.5251088,
+                                    0
+                                    ]
+                                },
+                                "properties": {
+                                    "name": "Veterinary Anatomy Theater",
+                                    'description':'<strong>Veterinary Anatomy Theater</strong>',
+                                    "styleUrl": "#icon-1635-FF5252-nodesc",
+                                    "icon-opacity": 1,
+                                    "icon-color": "#ff5252",
+                                    "icon-scale": 1,
+                                    "icon": "https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png"
+                                }
+                                }
+                            ]
+                        },
+                        cluster: true,
+                        clusterMaxZoom: 10, // Max zoom to cluster points on
+                        clusterRadius: 50 //radius of each cluster in pixels
+                    });
+
+            // GLOBE SPIN FUNCT.
+            map.on('style.load', () => {
+                map.setFog({}); // Set the default atmosphere style
+            });
+
+            // The following values can be changed to control rotation speed:
+
+            // At low zooms, complete a revolution every two minutes.
+            const secondsPerRevolution = 320;
+            // Above zoom level 5, do not rotate.
+            const maxSpinZoom = 7;
+            // Rotate at intermediate speeds between zoom levels 3 and 5.
+            const slowSpinZoom = 3;
+
+            let spinResetTimer;
+            let userInteracting = false;
+            let spinEnabled = true;
+
+            function spinGlobe() {
+                const zoom = map.getZoom();
+                if (spinEnabled && !userInteracting && zoom < maxSpinZoom) {
+                    let distancePerSecond = 360 / secondsPerRevolution;
+                    if (zoom > slowSpinZoom) {
+                        // Slow spinning at higher zooms
+                        const zoomDif =
+                            (maxSpinZoom - zoom) / (maxSpinZoom - slowSpinZoom);
+                        distancePerSecond *= zoomDif;
+                    }
+                    const center = map.getCenter();
+                    center.lng -= distancePerSecond;
+                    // Smoothly animate the map over one second.
+                    // When this animation is complete, it calls a 'moveend' event.
+                    map.easeTo({ center, duration: 1000, easing: (n) => n });
                 }
-                const center = map.getCenter();
-                center.lng -= distancePerSecond;
-                // Smoothly animate the map over one second.
-                // When this animation is complete, it calls a 'moveend' event.
-                map.easeTo({ center, duration: 1000, easing: (n) => n });
             }
-        }
 
-        // Pause spinning on interaction
-        map.on('mousedown', () => {
-            userInteracting = true;
-        });
+            // Pause spinning on interaction
+            map.on('mousedown', () => {
+                userInteracting = true;
+            });
 
-        // Restart spinning the globe when interaction is complete
-        map.on('mouseup', () => {
-            userInteracting = false;
-            spinGlobe();
-        });
-
-        // These events account for cases where the mouse has moved
-        // off the map, so 'mouseup' will not be fired.
-        map.on('dragend', () => {
-            userInteracting = false;
-            spinGlobe();
-        });
-        map.on('pitchend', () => {
-            userInteracting = false;
-            spinGlobe();
-        });
-        map.on('rotateend', () => {
-            userInteracting = false;
-            spinGlobe();
-        });
-
-        // When animation is complete, start spinning if there is no ongoing interaction
-        map.on('moveend', () => {
-            spinGlobe();
-        });
-
-        document.getElementById('btn-spin').addEventListener('click', (e) => {
-            spinEnabled = !spinEnabled;
-            if (spinEnabled) {
-                spinGlobe();
-                e.target.innerHTML = 'Pause rotation';
-            } else {
-                map.stop(); // Immediately end ongoing animation
-                e.target.innerHTML = 'Start rotation';
-            }
-        });
-
-        // ZOOM FUNCTION
-        map.on('wheel', () => {
-            userInteracting = true;
-            clearTimeout(spinResetTimer);
-            spinResetTimer = setTimeout(() => {
+            // Restart spinning the globe when interaction is complete
+            map.on('mouseup', () => {
                 userInteracting = false;
                 spinGlobe();
-            }, 1000);
-        });
+            });
 
-        map.on('zoomstart', () => {
-            userInteracting = true;
-            clearTimeout(spinResetTimer);
-        });
+            // These events account for cases where the mouse has moved
+            // off the map, so 'mouseup' will not be fired.
+            map.on('dragend', () => {
+                userInteracting = false;
+                spinGlobe();
+            });
+            map.on('pitchend', () => {
+                userInteracting = false;
+                spinGlobe();
+            });
+            map.on('rotateend', () => {
+                userInteracting = false;
+                spinGlobe();
+            });
 
-        map.on('zoomend', () => {
-            userInteracting = false;
+            // When animation is complete, start spinning if there is no ongoing interaction
+            map.on('moveend', () => {
+                spinGlobe();
+            });
+
+            document.getElementById('btn-spin').addEventListener('click', (e) => {
+                spinEnabled = !spinEnabled;
+                if (spinEnabled) {
+                    spinGlobe();
+                    e.target.innerHTML = 'Pause rotation';
+                } else {
+                    map.stop(); // Immediately end ongoing animation
+                    e.target.innerHTML = 'Start rotation';
+                }
+            });
+
+            // ZOOM FUNCTION
+            map.on('wheel', () => {
+                userInteracting = true;
+                clearTimeout(spinResetTimer);
+                spinResetTimer = setTimeout(() => {
+                    userInteracting = false;
+                    spinGlobe();
+                }, 1000);
+            });
+
+            map.on('zoomstart', () => {
+                userInteracting = true;
+                clearTimeout(spinResetTimer);
+            });
+
+            map.on('zoomend', () => {
+                userInteracting = false;
+                spinGlobe();
+            });
+
             spinGlobe();
-        });
+            // END OF GLOBE FUNCTIONS
 
-        spinGlobe();
-        // END OF GLOBE FUNCTIONS
-
-        // RESET BUTTON
-        document.getElementById('btn-reset').addEventListener('click', () => {
-            map.flyTo({
-                // center: [-83.5362, 34.8433], // 🔁 Your map’s original center
-                zoom: 6,
-                speed: 1.2,
-                curve: 1
-            });
-        });
-
-                // Add a layer to use the image to represent the data.
-                map.addLayer({
-                    'id': 'unclustered-points',
-                    'type': 'symbol',
-                    'source': 'point', // reference the data source
-                    'filter': ['!', ['has', 'point_count']], // ✅ EXCLUDES clustered points
-                    'layout': {
-                        'icon-image': 'cat', // reference the image
-                        'icon-size': 0.25
-                    }
+            // RESET BUTTON
+            document.getElementById('btn-reset').addEventListener('click', () => {
+                map.flyTo({
+                    // center: [-83.5362, 34.8433], // 🔁 Your map’s original center
+                    zoom: 6,
+                    speed: 1.2,
+                    curve: 1
                 });
-
-                // Cluster circles
-                map.addLayer({
-                    id: 'clusters',
-                    type: 'circle',
-                    source: 'point',
-                    filter: ['has', 'point_count'],
-                    paint: {
-                        'circle-color': '#ffd700',
-                        'circle-radius': [
-                            'step',
-                            ['get', 'point_count'],
-                            15,
-                            10, 20,
-                            30, 25
-                        ],
-                        'circle-opacity': 0.75
-                    }
-                });
-
-                // Cluster count labels
-                map.addLayer({
-                    id: 'cluster-count',
-                    type: 'symbol',
-                    source: 'point',
-                    filter: ['has', 'point_count'],
-                    layout: {
-                        'text-field': '{point_count_abbreviated}',
-                        'text-font': ['DIN Offc Pro Medium', 'Arial Unicode MS Bold'],
-                        'text-size': 14
-                    }
-                });
-
-                // SIDEBAR
-                const features = map.getSource('point')._data.features;
-                const listEl = document.getElementById('location-list');
-
-                features.forEach((feature, index) => {
-                    const li = document.createElement('li');
-                    li.textContent = feature.properties.name;
-                    li.style.cursor = 'pointer';
-                    li.style.padding = '4px 0';
-                    li.addEventListener('click', () => {
-                        map.flyTo({
-                            center: feature.geometry.coordinates,
-                            zoom: 16
-                        });
-
-                        new mapboxgl.Popup({
-                            closeButton: true,
-                            closeOnClick: false,
-                            offset: 34
-                            })
-                            .setLngLat(feature.geometry.coordinates)
-                            .setHTML(feature.properties.description)
-                            .addTo(map);
-
-                            document.getElementById('info-content').innerHTML = feature.properties.description;
-                        });
-
-                    listEl.appendChild(li);
-                    
-                });
-
-        // Hover Popups
-        const popup = new mapboxgl.Popup({
-            closeButton: false,
-            closeOnClick: false,
-            offset: 34
-        });
-        
-        map.on('mouseenter', 'unclustered-points', (e) => {
-            // Change the cursor style as a UI indicator.
-            map.getCanvas().style.cursor = 'pointer';
-
-            // Copy coordinates array.
-            const coordinates = e.features[0].geometry.coordinates.slice();
-            const description = e.features[0].properties.description;
-
-            // Ensure that if the map is zoomed out such that multiple
-            // copies of the feature are visible, the popup appears
-            // over the copy being pointed to.
-            while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-                coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-            }
-
-            // Populate the popup and set its coordinates
-            // based on the feature found.
-            popup.setLngLat(coordinates).setHTML(description).addTo(map);
-        });
-
-        map.on('mouseleave', 'unclustered-points', () => {
-            map.getCanvas().style.cursor = '';
-            popup.remove();
-        });
-
-        // Click Feature for Popups
-        map.on('click', 'unclustered-points', (e) => {
-            const coordinates = e.features[0].geometry.coordinates.slice();
-            const description = e.features[0].properties.description;
-
-            // ✅ Fly to the marker
-            map.flyTo({
-                center: coordinates,
-                zoom: 16
             });
 
-            // ✅ Show a popup
-            new mapboxgl.Popup({
-                closeButton: true,
+                    // Add a layer to use the image to represent the data.
+                    map.addLayer({
+                        'id': 'unclustered-points',
+                        'type': 'symbol',
+                        'source': 'point', // reference the data source
+                        'filter': ['!', ['has', 'point_count']], // ✅ EXCLUDES clustered points
+                        'layout': {
+                            'icon-image': 'cat', // reference the image
+                            'icon-size': 0.2
+                        }
+                    });
+
+                    // Cluster circles
+                    map.addLayer({
+                        id: 'clusters',
+                        type: 'circle',
+                        source: 'point',
+                        filter: ['has', 'point_count'],
+                        paint: {
+                            'circle-color': '#ffd700',
+                            'circle-radius': [
+                                'step',
+                                ['get', 'point_count'],
+                                15,
+                                10, 20,
+                                30, 25
+                            ],
+                            'circle-opacity': 0.75
+                        }
+                    });
+
+                    // Cluster count labels
+                    map.addLayer({
+                        id: 'cluster-count',
+                        type: 'symbol',
+                        source: 'point',
+                        filter: ['has', 'point_count'],
+                        layout: {
+                            'text-field': '{point_count_abbreviated}',
+                            'text-font': ['DIN Offc Pro Medium', 'Arial Unicode MS Bold'],
+                            'text-size': 14
+                        }
+                    });
+
+                    // SIDEBAR
+                    const features = map.getSource('point')._data.features;
+                    const listEl = document.getElementById('location-list');
+
+                    features.forEach((feature, index) => {
+                        const li = document.createElement('li');
+                        li.textContent = feature.properties.name;
+                        li.style.cursor = 'pointer';
+                        li.style.padding = '4px 0';
+                        li.addEventListener('click', () => {
+                            map.flyTo({
+                                center: feature.geometry.coordinates,
+                                zoom: 16
+                            });
+
+                            new mapboxgl.Popup({
+                                closeButton: true,
+                                closeOnClick: false,
+                                offset: 34
+                                })
+                                .setLngLat(feature.geometry.coordinates)
+                                .setHTML(feature.properties.description)
+                                .addTo(map);
+
+                                document.getElementById('info-content').innerHTML = feature.properties.description;
+                            });
+
+                        listEl.appendChild(li);
+                        
+                    });
+
+            // Hover Popups
+            const popup = new mapboxgl.Popup({
+                closeButton: false,
                 closeOnClick: false,
                 offset: 34
-            })
-            .setLngLat(coordinates)
-            .setHTML(description)
-            .addTo(map);
-
-            // ✅ Update info panel
-            document.getElementById('info-content').innerHTML = description;
-        });
-
-
-        // Change the cursor to a pointer when the mouse is over the places layer.
-        map.on('mouseenter', 'unclustered-points', () => {
-            map.getCanvas().style.cursor = 'pointer';
-        });
-
-        // Change it back to a pointer when it leaves.
-        map.on('mouseleave', 'unclustered-points', () => {
-            map.getCanvas().style.cursor = '';
-        });
-            }
-        );
-        
-        // click behavior for cluster expansion
-        map.on('click', 'clusters', (e) => {
-            const features = map.queryRenderedFeatures(e.point, {
-                layers: ['clusters']
             });
-            const clusterId = features[0].properties.cluster_id;
-            map.getSource('point').getClusterExpansionZoom(clusterId, (err, zoom) => {
-                if (err) return;
-                map.easeTo({
-                    center: features[0].geometry.coordinates,
-                    zoom: zoom
+            
+            map.on('mouseenter', 'unclustered-points', (e) => {
+                // Change the cursor style as a UI indicator.
+                map.getCanvas().style.cursor = 'pointer';
+
+                // Copy coordinates array.
+                const coordinates = e.features[0].geometry.coordinates.slice();
+                const description = e.features[0].properties.description;
+
+                // Ensure that if the map is zoomed out such that multiple
+                // copies of the feature are visible, the popup appears
+                // over the copy being pointed to.
+                while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+                    coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+                }
+
+                // Populate the popup and set its coordinates
+                // based on the feature found.
+                popup.setLngLat(coordinates).setHTML(description).addTo(map);
+            });
+
+            map.on('mouseleave', 'unclustered-points', () => {
+                map.getCanvas().style.cursor = '';
+                popup.remove();
+            });
+
+            // Click Feature for Popups
+            map.on('click', 'unclustered-points', (e) => {
+                const coordinates = e.features[0].geometry.coordinates.slice();
+                const description = e.features[0].properties.description;
+
+                // ✅ Fly to the marker
+                map.flyTo({
+                    center: coordinates,
+                    zoom: 16
+                });
+
+                // ✅ Show a popup
+                new mapboxgl.Popup({
+                    closeButton: true,
+                    closeOnClick: false,
+                    offset: 34
+                })
+                .setLngLat(coordinates)
+                .setHTML(description)
+                .addTo(map);
+
+                // ✅ Update info panel
+                document.getElementById('info-content').innerHTML = description;
+            });
+
+
+            // Change the cursor to a pointer when the mouse is over the places layer.
+            map.on('mouseenter', 'unclustered-points', () => {
+                map.getCanvas().style.cursor = 'pointer';
+            });
+
+            // Change it back to a pointer when it leaves.
+            map.on('mouseleave', 'unclustered-points', () => {
+                map.getCanvas().style.cursor = '';
+            });
+                }
+            );
+            
+            // click behavior for cluster expansion
+            map.on('click', 'clusters', (e) => {
+                const features = map.queryRenderedFeatures(e.point, {
+                    layers: ['clusters']
+                });
+                const clusterId = features[0].properties.cluster_id;
+                map.getSource('point').getClusterExpansionZoom(clusterId, (err, zoom) => {
+                    if (err) return;
+                    map.easeTo({
+                        center: features[0].geometry.coordinates,
+                        zoom: zoom
+                    });
                 });
             });
+
         });
 
-    });
-</script>
+        // Toggle Sources Box
+        const toggleBtn = document.getElementById('toggle-sources');
+        const sourcesBox = document.getElementById('sources-box');
+
+        toggleBtn.addEventListener('click', () => {
+            const isVisible = sourcesBox.style.display === 'block';
+            sourcesBox.style.display = isVisible ? 'none' : 'block';
+            toggleBtn.textContent = isVisible ? 'Show Sources' : 'Hide Sources';
+        });
+    </script>
 
 </body>
 </html>
