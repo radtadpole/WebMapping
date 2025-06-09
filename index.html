@@ -109,7 +109,7 @@
             background-color: rgba(169, 169, 169, 0.85);
         }
 
-        #btn-spin, #btn-reset #btn-sound{
+        #btn-spin, #btn-reset {
             font: bold 18px/20px 'Orbitron', Arial, Helvetica, sans-serif;
             background-color: none;
             color: black; 
@@ -252,7 +252,6 @@
             <h2>Tools</h2>
             <button id="btn-spin">Pause rotation</button>
             <button id="btn-reset">Reset Zoom</button>
-            <button onclick="document.getElementById('startup-sound').play()" id="btn-sound">Click me!</button>
         </div>
     </div>
 
@@ -272,8 +271,7 @@
     </div>
     <button id="toggle-sources">Sources</button>
 
-    <!-- sounds fx -->
-    <audio id="startup-sound" src="https://github.com/radtadpole/WebMapping/blob/main/Hunger%20Game%20Whistle%20-%20QuickSounds.com.mp3" preload="auto"></audio>
+
 
     <script>
         mapboxgl.accessToken = 'pk.eyJ1IjoicmFkdGFkcG9sZSIsImEiOiJjbHVsaGpzNnExNDM4MmpudXMyamFpZTM2In0.rNrtDKpfSzqAa6PxIn_Wjw';
@@ -1158,7 +1156,7 @@
                         'filter': ['!', ['has', 'point_count']], // EXCLUDES clustered points
                         'layout': {
                             'icon-image': 'cat', // reference the image
-                            'icon-size': 0.26
+                            'icon-size': 0.067
                         }
                     });
 
@@ -1330,13 +1328,6 @@
             });
 
         });
-            // sound fx
-              window.addEventListener('DOMContentLoaded', function () {
-                const audio = document.getElementById('startup-sound');
-                audio.play().catch((error) => {
-                  console.log("Autoplay failed:", error);
-                });
-              });
 
     </script>
 
