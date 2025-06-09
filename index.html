@@ -271,7 +271,8 @@
     </div>
     <button id="toggle-sources">Sources</button>
 
-
+    <!-- sounds fx -->
+    <audio id="startup-sound" src="sounds/hunger-games-whistle.mp3" preload="auto"></audio>
 
     <script>
         mapboxgl.accessToken = 'pk.eyJ1IjoicmFkdGFkcG9sZSIsImEiOiJjbHVsaGpzNnExNDM4MmpudXMyamFpZTM2In0.rNrtDKpfSzqAa6PxIn_Wjw';
@@ -1328,6 +1329,13 @@
             });
 
         });
+            // sound fx
+              window.addEventListener('DOMContentLoaded', function () {
+                onst audio = document.getElementById('startup-sound');
+                audio.play().catch((error) => {
+                  console.log("Autoplay failed:", error);
+                });
+              });
 
     </script>
 
