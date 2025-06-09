@@ -259,7 +259,10 @@
         </div>
         <!-- BUTTONS -->
         <div id="button-controls">
-            <h2>Tools</h2>
+            <h2 id="tools-header" style="display: flex; align-items: center; justify-content: space-between;">
+                Tools
+                <span id="chevron" style="display: inline-block; transition: transform 0.3s;">▼</span>
+            </h2>
             <button id="btn-spin">Pause rotation</button>
             <button id="btn-reset">Reset Zoom</button>
         </div>
@@ -1335,6 +1338,18 @@
                 sourcesBox.style.display = isVisible ? 'none' : 'block';
                 overlay.style.display = isVisible ? 'none' : 'block';
                 toggleBtn.textContent = isVisible ? 'Sources' : 'Hide Sources';
+            });
+
+            // Toggle tools
+            const toggleToolsBtn = document.getElementById('toggle-tools');
+            const toolsSection = document.getElementById('button-controls');
+            const chevron = document.getElementById('chevron');
+            
+            toggleToolsBtn.addEventListener('click', () => {
+                const isVisible = toolsSection.style.display !== 'none';
+                toolsSection.style.display = isVisible ? 'none' : 'flex';
+                toggleToolsBtn.textContent = isVisible ? 'Show Tools' : 'Hide Tools';
+                chevron.style.transform = isVisible ? 'rotate(0deg)' : 'rotate(180deg)';
             });
 
         });
