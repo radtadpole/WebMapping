@@ -267,7 +267,7 @@
                 https://static.wikia.nocookie.net/tadhg/images/e/e2/GoldSealHuge.png
             </a>
         </p>
-        <p>Custom basemap made in Mapbox by Kyle Marcelino</p>
+        <h3>Custom basemap made in Mapbox by Kyle Marcelino.</h3>
     </div>
     <button id="toggle-sources">Sources</button>
 
@@ -1141,7 +1141,7 @@
             // RESET BUTTON
             document.getElementById('btn-reset').addEventListener('click', () => {
                 map.flyTo({
-                    // center: [-83.5362, 34.8433], // 🔁 Your map’s original center
+                    // center: [-83.5362, 34.8433], // map’s original center
                     zoom: 6,
                     speed: 1.2,
                     curve: 1
@@ -1153,7 +1153,7 @@
                         'id': 'unclustered-points',
                         'type': 'symbol',
                         'source': 'point', // reference the data source
-                        'filter': ['!', ['has', 'point_count']], // ✅ EXCLUDES clustered points
+                        'filter': ['!', ['has', 'point_count']], // EXCLUDES clustered points
                         'layout': {
                             'icon-image': 'cat', // reference the image
                             'icon-size': 0.26
@@ -1260,13 +1260,13 @@
                 const coordinates = e.features[0].geometry.coordinates.slice();
                 const description = e.features[0].properties.description;
 
-                // ✅ Fly to the marker
+                // Fly to the marker
                 map.flyTo({
                     center: coordinates,
                     zoom: 16
                 });
 
-                // ✅ Show a popup
+                // Show a popup
                 new mapboxgl.Popup({
                     closeButton: true,
                     closeOnClick: false,
@@ -1276,7 +1276,7 @@
                 .setHTML(description)
                 .addTo(map);
 
-                // ✅ Update info panel
+                // Update info panel
                 document.getElementById('info-content').innerHTML = description;
             });
 
@@ -1308,17 +1308,27 @@
                 });
             });
 
+            // hover clusters
+            map.on('mouseenter', 'clusters', () => {
+                map.getCanvas().style.cursor = 'pointer';
+            });
+
+            map.on('mouseleave', 'clusters', () => {
+                map.getCanvas().style.cursor = '';
+            });
+
+            // Toggle Sources Box
+            const toggleBtn = document.getElementById('toggle-sources');
+            const sourcesBox = document.getElementById('sources-box');
+
+            toggleBtn.addEventListener('click', () => {
+                const isVisible = sourcesBox.style.display === 'block';
+                sourcesBox.style.display = isVisible ? 'none' : 'block';
+                toggleBtn.textContent = isVisible ? 'Sources' : 'Hide Sources';
+            });
+
         });
 
-        // Toggle Sources Box
-        const toggleBtn = document.getElementById('toggle-sources');
-        const sourcesBox = document.getElementById('sources-box');
-
-        toggleBtn.addEventListener('click', () => {
-            const isVisible = sourcesBox.style.display === 'block';
-            sourcesBox.style.display = isVisible ? 'none' : 'block';
-            toggleBtn.textContent = isVisible ? 'Show Sources' : 'Hide Sources';
-        });
     </script>
 
 </body>
