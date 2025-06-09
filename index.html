@@ -1331,7 +1331,7 @@
         });
             // sound fx
               window.addEventListener('DOMContentLoaded', function () {
-                onst audio = document.getElementById('startup-sound');
+                const audio = document.getElementById('startup-sound');
                 audio.play().catch((error) => {
                   console.log("Autoplay failed:", error);
                 });
