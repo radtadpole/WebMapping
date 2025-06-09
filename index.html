@@ -133,6 +133,10 @@
             background-color: red;
             color: white;
         }
+
+        #tools-header {
+            cursor: pointer;
+        }
         
         /* POPUP BOXES */
         .mapboxgl-popup-content {
@@ -254,12 +258,11 @@
     <!-- INFO BOX -->
     <div id="info-panel">
         <div id="info-wrapper">
-            <h2>Place You've Selected</h2>
+            <h2 id="info-title">Select a Location</h2>
             <div id="info-content"></div>
         </div>
         <!-- BUTTONS -->
         <div id="button-controls">
-            <button id="toggle-tools" style="margin-top: 10px;">Tools</button>
             <h2 id="tools-header" style="display: flex; align-items: center; justify-content: space-between;">
                 Tools
                 <span id="chevron" style="display: inline-block; transition: transform 0.3s;">▼</span>
@@ -1150,7 +1153,7 @@
             spinGlobe();
             // END OF GLOBE FUNCTIONS
 
-            // RESET BUTTON
+            // RESET ZOOM BUTTON
             document.getElementById('btn-reset').addEventListener('click', () => {
                 map.flyTo({
                     // center: [-83.5362, 34.8433], // map’s original center
@@ -1229,6 +1232,9 @@
                                 .addTo(map);
 
                                 document.getElementById('info-content').innerHTML = feature.properties.description;
+                                
+                                // Selected location
+                                document.getElementById('info-title').textContent = 'You Have Selected:';
                             });
 
                         listEl.appendChild(li);
@@ -1288,8 +1294,14 @@
                 .setHTML(description)
                 .addTo(map);
 
+
+
+                // Selected location
+                document.getElementById('info-title').textContent = 'You Have Selected:';
+                
                 // Update info panel
                 document.getElementById('info-content').innerHTML = description;
+
             });
 
 
@@ -1342,14 +1354,18 @@
             });
 
             // Toggle tools
-            const toggleToolsBtn = document.getElementById('toggle-tools');
             const toolsSection = document.getElementById('button-controls');
             const chevron = document.getElementById('chevron');
-            
-            toggleToolsBtn.addEventListener('click', () => {
-                const isVisible = toolsSection.style.display !== 'none';
-                toolsSection.style.display = isVisible ? 'none' : 'flex';
-                toggleToolsBtn.textContent = isVisible ? 'Show Tools' : 'Hide Tools';
+            const toolsHeader = document.getElementById('tools-header');
+
+            toolsHeader.addEventListener('click', () => {
+                const isVisible = document.getElementById('btn-spin').style.display !== 'none';
+
+                // Toggle visibility of the buttons
+                document.getElementById('btn-spin').style.display = isVisible ? 'none' : 'block';
+                document.getElementById('btn-reset').style.display = isVisible ? 'none' : 'block';
+
+                // Rotate chevron
                 chevron.style.transform = isVisible ? 'rotate(0deg)' : 'rotate(180deg)';
             });
 
